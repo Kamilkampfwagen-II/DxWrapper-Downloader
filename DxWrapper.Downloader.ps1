@@ -12,6 +12,7 @@ $items = @(
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'DxWrapper Downloader'
+Write-Host 'This script is dependant on the nightly.link project by oprypin'
 Write-Host 'This script is not affiliated with the DxWrapper project by elishacloud' -ForegroundColor Red
 Write-Host ''
 
