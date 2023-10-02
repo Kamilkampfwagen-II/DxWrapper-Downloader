@@ -9,7 +9,7 @@ $itemTable = @{
     './temp/Build/AllSettings.ini' = './dxwrapper.ini'
 }
 
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Inquire'
 
 Write-Host 'DxWrapper Downloader'
 Write-Host 'This script is dependant on the nightly.link project by oprypin'
