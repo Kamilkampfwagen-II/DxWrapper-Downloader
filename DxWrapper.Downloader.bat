@@ -1,3 +1,28 @@
+$ErrorActionPreference = 'SilentlyContinue'
+rem <#
+	cls
+	@echo off
+	cd %~dp0
+	set "helper=$args=$args -split '';$Error.Clear();Set-Variable PSScript -Option Constant -Value ([ordered]@{Root=$args[0].Substring(0,$args[0].Length-1);Name=$args[1];FullName=$args[2];Args=$args[3..$args.length]}).AsReadOnly();Invoke-Command([ScriptBlock]::Create((Get-Content $args[2] -Raw))) -NoNewScope -ArgumentList $args[3..$args.Length]"
+
+	:initArg
+	set args=%~dp0%~nx0%0
+	if '%1'=='' goto exec
+	set args=%args%%1
+
+	:addArg
+	shift
+	if '%1'=='' goto exec
+	set args=%args%%1
+	goto addArg
+
+	:exec
+	Powershell.exe -ExecutionPolicy Bypass -Command $ErrorActionPreference = 'Continue';$args = '%args%';%helper%
+	exit
+rem #>
+
+#	---DxWrapper Downloader---
+
 $mainRepo = 'elishacloud/dxwrapper'
 $workflow = 'ci'
 $branch = 'master'
@@ -18,8 +43,8 @@ Write-Host 'This script is not affiliated with the DxWrapper project by elishacl
 Write-Host ''
 
 
-New-Item -Path "$PSScriptRoot/dxwrapper/temp" -ItemType Directory -Force | Out-Null
-Set-Location "$PSScriptRoot/dxwrapper"
+New-Item -Path "$($PSScript.Root)/dxwrapper/temp" -ItemType Directory -Force | Out-Null
+Set-Location "$($PSScript.Root)/dxwrapper"
 
 
 # Remove any possible leftovers to prevent stupid Powershell cmdlets from failing
@@ -53,7 +78,7 @@ $progressPreference = 'Continue'
 
 Write-Host 'Extracting files from the archive..'
 Add-Type -Assembly 'System.IO.Compression.Filesystem'
-[System.IO.Compression.ZipFile]::ExtractToDirectory("$PSScriptRoot/dxwrapper/temp/dxwrapper.zip", "$PSScriptRoot/dxwrapper/temp")
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$($PSScript.Root)/dxwrapper/temp/dxwrapper.zip", "$($PSScript.Root)/dxwrapper/temp")
 
 
 Remove-Item -Path './Stub' -Recurse -Force -ErrorAction Ignore
