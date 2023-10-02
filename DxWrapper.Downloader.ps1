@@ -3,11 +3,11 @@ $workflow = 'ci'
 $branch = 'master'
 $fileName = 'Release binaries' # %20
 
-$items = @(
-    './temp/Build/Stub' # directory
-    './temp/Build/dxwrapper.dll'
-    './temp/Build/AllSettings.ini'
-)
+$itemTable = @{
+    './temp/Build/Stub' = './Stub' # directory
+    './temp/Build/dxwrapper.dll' = './dxwrapper.dll'
+    './temp/Build/AllSettings.ini' = './dxwrapper.ini'
+}
 
 $ErrorActionPreference = 'Stop'
 
@@ -50,8 +50,10 @@ Write-Host 'Extracting the archive..'
 Expand-Archive -Path './temp/dxwrapper.zip' -DestinationPath './temp' -Force
 
 Write-Host 'Moving files around..'
-Move-Item -Path $items -Destination '.' -Force
-Rename-Item -Path './AllSettings.ini' -NewName './dxwrapper.ini' -Force
+foreach ($key in $itemTable.Keys) {
+    Move-Item -Path $key -Destination $itemTable[$key] -Force
+}
+
 
 Write-Host 'Cleaning up..'
 Remove-Item -Path './temp' -Recurse -Force
