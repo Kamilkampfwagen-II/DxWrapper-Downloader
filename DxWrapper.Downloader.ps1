@@ -56,7 +56,7 @@ foreach ($key in $itemTable.Keys) {
 
 
 Write-Host 'Cleaning up..'
-Remove-Item -Path './temp' -Recurse -Force
+Remove-Item -Path './temp/*' -Recurse -Force
 
 Set-Content -Path './.version.txt' -Value $latestRun -Force
 
