@@ -4,7 +4,7 @@ $branch = 'master'
 $fileName = 'Release binaries' # %20
 
 $itemTable = @{
-    './temp/Build/Stub' = './Stub' # directory
+    './temp/Build/Stub' = '.' # directory
     './temp/Build/dxwrapper.dll' = './dxwrapper.dll'
     './temp/Build/AllSettings.ini' = './dxwrapper.ini'
 }
