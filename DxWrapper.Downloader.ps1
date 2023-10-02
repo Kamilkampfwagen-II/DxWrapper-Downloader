@@ -52,11 +52,10 @@ $progressPreference = 'Continue'
 Write-Host 'Extracting the archive..'
 Expand-Archive -Path './temp/dxwrapper.zip' -DestinationPath './temp' -Force
 
-Write-Host 'Moving files around..'
 foreach ($key in $itemTable.Keys) {
+    Write-Host "Moving $key to $($itemTable[$key]) .."
     Move-Item -Path $key -Destination $itemTable[$key] -Force
 }
-
 
 Write-Host 'Cleaning up..'
 Remove-Item -Path './temp/*' -Recurse -Force
