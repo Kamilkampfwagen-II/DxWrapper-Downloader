@@ -23,7 +23,7 @@ Set-Location "$PSScriptRoot/dxwrapper"
 Remove-Item -Path './temp/*' -Recurse -Force -ErrorAction Ignore
 
 $latestRun
-$currentRun = Get-Content './.version.txt' -ErrorAction Ignore
+$currentRun = Get-Content './version.txt' -ErrorAction Ignore
 if ($currentRun) {
     Write-Host 'Fetching the latest build..'
     $progressPreference = 'SilentlyContinue'
@@ -31,7 +31,7 @@ if ($currentRun) {
     $progressPreference = 'Continue'
     $latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
     if ($currentRun -eq $latestRun) {
-        Write-Host "Already up to date, please delete the '.version.txt' file and run again to overwrite."
+        Write-Host "Already up to date, please delete the 'version.txt' file and run again to overwrite."
         Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
         & explorer.exe .
     } else {
@@ -39,7 +39,7 @@ if ($currentRun) {
         Write-Host $latestRun -ForegroundColor Blue
     }
 } else {
-    Write-Host "Failed to read latest build id from '.version.txt', proceeding.."
+    Write-Host "Failed to read latest build id from 'version.txt', proceeding.."
 }
 
 
@@ -61,7 +61,7 @@ foreach ($key in $itemTable.Keys) {
 Write-Host 'Cleaning up..'
 Remove-Item -Path './temp/*' -Recurse -Force
 
-Set-Content -Path './.version.txt' -Value $latestRun -Force
+Set-Content -Path './version.txt' -Value $latestRun -Force
 
 Write-Host 'Done!' -ForegroundColor Green
 Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
