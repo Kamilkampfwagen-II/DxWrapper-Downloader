@@ -31,15 +31,15 @@ if ($currentRun) {
     $progressPreference = 'Continue'
     $latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
     if ($currentRun -eq $latestRun) {
-        Write-Host "Already up to date, please delete the version.txt file and run again to overwrite."
+        Write-Host 'Already up to date, please delete the version.txt file and run again to overwrite.'
         Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
         & explorer.exe .
     } else {
-        Write-Host "A new build is available: " -NoNewline
+        Write-Host 'A new build is available: ' -NoNewline
         Write-Host $latestRun -ForegroundColor Blue
     }
 } else {
-    Write-Host "Failed to read latest build id from dxwrapper/version.txt, proceeding.."
+    Write-Host 'Failed to read latest build id from dxwrapper/version.txt, proceeding..'
 }
 
 
