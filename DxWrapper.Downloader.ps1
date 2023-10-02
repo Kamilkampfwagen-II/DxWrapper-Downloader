@@ -22,6 +22,7 @@ Set-Location "$PSScriptRoot/dxwrapper"
 # Remove any possible leftovers to prevent Move-Item from failing
 Remove-Item -Path './temp/*' -Recurse -Force -ErrorAction Ignore
 
+$latestRun
 $currentRun = Get-Content './.version.txt' -ErrorAction Ignore
 if ($currentRun) {
     Write-Host 'Fetching the latest build..'
