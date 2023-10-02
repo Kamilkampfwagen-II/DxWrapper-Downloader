@@ -49,6 +49,7 @@ Write-Host 'Extracting the archive..'
 Add-Type -Assembly 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$PSScriptRoot/dxwrapper/temp/dxwrapper.zip", "$PSScriptRoot/dxwrapper/temp")
 
+Remove-Item -Path './Stub' -Recurse -Force -ErrorAction Ignore
 foreach ($key in $itemTable.Keys) {
     Write-Host "Moving $key to $($itemTable[$key])"
     Move-Item -Path $key -Destination $itemTable[$key] -Force
