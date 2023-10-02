@@ -64,5 +64,5 @@ Remove-Item -Path './temp/*' -Recurse -Force
 Set-Content -Path './.version.txt' -Value $latestRun -Force
 
 Write-Host 'Done!' -ForegroundColor Green
-Read-Host -Prompt 'Press enter to open up the dxwrapper folder'
+Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
 & explorer.exe .
