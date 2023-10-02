@@ -23,21 +23,21 @@ Set-Location "$PSScriptRoot/dxwrapper"
 Remove-Item -Path './temp/*' -Recurse -Force -ErrorAction Ignore
 
 $currentRun = Get-Content './version.txt' -ErrorAction Ignore
-Write-Host 'Fetching the latest build..'
+Write-Host 'Fetching the latest build info..'
 $progressPreference = 'SilentlyContinue'
 $nightlyInfo = Invoke-WebRequest -Uri "https://nightly.link/$mainRepo/workflows/$workflow/$branch/$fileName" -UseBasicParsing
 $progressPreference = 'Continue'
 $latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
 if ($currentRun -eq $latestRun) {
-    Write-Host 'Already up to date, please delete the version.txt file and run again to overwrite.'
-    Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
+    Write-Host 'Up to date!' -ForegroundColor Green
+    Read-Host -Prompt 'Press enter to open up the DxWrapper folder:'
     & explorer.exe .
 } else {
     Write-Host 'A new build is available: ' -NoNewline
     Write-Host $latestRun -ForegroundColor Blue
 }
 
-Write-Host 'Downloading the latest artifact from ' -NoNewline
+Write-Host 'Downloading the latest build from ' -NoNewline
 Write-Host 'elishacloud/dxwrapper' -ForegroundColor Blue
 $progressPreference = 'SilentlyContinue'
 $dxwrapperNightly = "https://nightly.link/$mainRepo/workflows/$workflow/$branch/$fileName.zip"
@@ -48,7 +48,7 @@ Write-Host 'Extracting the archive..'
 Expand-Archive -Path './temp/dxwrapper.zip' -DestinationPath './temp' -Force
 
 foreach ($key in $itemTable.Keys) {
-    Write-Host "Moving $key to $($itemTable[$key]) .."
+    Write-Host "Moving $key to $($itemTable[$key])"
     Move-Item -Path $key -Destination $itemTable[$key] -Force
 }
 
