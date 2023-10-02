@@ -72,5 +72,5 @@ Remove-Item -Path './temp' -Recurse -Force
 
 
 Write-Host 'Done!' -ForegroundColor Green
-Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
+Read-Host -Prompt 'Press enter to open up the dxwrapper folder'
 & explorer.exe .
