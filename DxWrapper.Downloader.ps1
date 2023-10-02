@@ -45,7 +45,8 @@ Invoke-WebRequest -Uri $dxwrapperNightly -OutFile './temp/dxwrapper.zip' -UseBas
 $progressPreference = 'Continue'
 
 Write-Host 'Extracting the archive..'
-Expand-Archive -Path './temp/dxwrapper.zip' -DestinationPath './temp' -Force
+Add-Type -Assembly 'System.IO.Compression.Filesystem'
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$PSScriptRoot/dxwrapper/temp/dxwrapper.zip", "$PSScriptRoot/dxwrapper/temp")
 
 foreach ($key in $itemTable.Keys) {
     Write-Host "Moving $key to $($itemTable[$key])"
