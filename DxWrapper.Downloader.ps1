@@ -30,7 +30,7 @@ $progressPreference = 'Continue'
 $latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
 if ($currentRun -eq $latestRun) {
     Write-Host 'Up to date!' -ForegroundColor Green
-    Read-Host -Prompt 'Press enter to open up the DxWrapper folder:'
+    Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
     & explorer.exe .
 } else {
     Write-Host 'A new build is available: ' -NoNewline
