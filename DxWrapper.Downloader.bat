@@ -83,7 +83,7 @@ Add-Type -Assembly 'System.IO.Compression.Filesystem'
 
 Remove-Item -Path './Stub' -Recurse -Force -ErrorAction Ignore
 foreach ($key in $itemTable.Keys) {
-    Write-Host "Moving $key to $($itemTable[$key])"
+    Write-Host ('Moving "{0}" --> "{1}"' -F $key, $itemTable[$key])
     Move-Item -Path $key -Destination $itemTable[$key] -Force
 }
 
@@ -97,5 +97,5 @@ Remove-Item -Path './temp' -Recurse -Force
 
 
 Write-Host 'Done!' -ForegroundColor Green
-Read-Host -Prompt 'Press enter to open up the dxwrapper folder'
+Read-Host -Prompt 'Press enter to open the dxwrapper folder'
 & explorer.exe .
