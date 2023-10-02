@@ -51,7 +51,7 @@ Invoke-WebRequest -Uri $dxwrapperNightly -OutFile './temp/dxwrapper.zip' -UseBas
 $progressPreference = 'Continue'
 
 
-Write-Host 'Extracting the archive..'
+Write-Host 'Extracting files from the archive..'
 Add-Type -Assembly 'System.IO.Compression.Filesystem'
 [System.IO.Compression.ZipFile]::ExtractToDirectory("$PSScriptRoot/dxwrapper/temp/dxwrapper.zip", "$PSScriptRoot/dxwrapper/temp")
 
