@@ -32,7 +32,7 @@ if ($currentRun -eq $latestRun) {
     Write-Host 'Up to date!' -ForegroundColor Green
     Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
     & explorer.exe .
-    Exit-PSSession
+    exit
 } else {
     Write-Host 'A new build is available: ' -NoNewline
     Write-Host $latestRun -ForegroundColor Blue
