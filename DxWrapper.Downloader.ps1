@@ -22,26 +22,20 @@ Set-Location "$PSScriptRoot/dxwrapper"
 # Remove any possible leftovers to prevent Move-Item from failing
 Remove-Item -Path './temp/*' -Recurse -Force -ErrorAction Ignore
 
-$latestRun
 $currentRun = Get-Content './version.txt' -ErrorAction Ignore
-if ($currentRun) {
-    Write-Host 'Fetching the latest build..'
-    $progressPreference = 'SilentlyContinue'
-    $nightlyInfo = Invoke-WebRequest -Uri "https://nightly.link/$mainRepo/workflows/$workflow/$branch/$fileName" -UseBasicParsing
-    $progressPreference = 'Continue'
-    $latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
-    if ($currentRun -eq $latestRun) {
-        Write-Host 'Already up to date, please delete the version.txt file and run again to overwrite.'
-        Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
-        & explorer.exe .
-    } else {
-        Write-Host 'A new build is available: ' -NoNewline
-        Write-Host $latestRun -ForegroundColor Blue
-    }
+Write-Host 'Fetching the latest build..'
+$progressPreference = 'SilentlyContinue'
+$nightlyInfo = Invoke-WebRequest -Uri "https://nightly.link/$mainRepo/workflows/$workflow/$branch/$fileName" -UseBasicParsing
+$progressPreference = 'Continue'
+$latestRun = $nightlyInfo.Links[2].href.Split('/')[7]
+if ($currentRun -eq $latestRun) {
+    Write-Host 'Already up to date, please delete the version.txt file and run again to overwrite.'
+    Read-Host -Prompt 'Press enter to open up the DxWrapper folder'
+    & explorer.exe .
 } else {
-    Write-Host 'Failed to read latest build id from dxwrapper/version.txt, proceeding..'
+    Write-Host 'A new build is available: ' -NoNewline
+    Write-Host $latestRun -ForegroundColor Blue
 }
-
 
 Write-Host 'Downloading the latest artifact from ' -NoNewline
 Write-Host 'elishacloud/dxwrapper' -ForegroundColor Blue
